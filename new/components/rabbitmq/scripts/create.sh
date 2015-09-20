@@ -17,9 +17,6 @@ ctx logger info "Installing RabbitMQ..."
 copy_notice "rabbitmq"
 create_dir "${RABBITMQ_LOG_BASE}"
 
-ctx logger info "Chowning RabbitMQ logs path..."
-sudo chown rabbitmq:rabbitmq ${RABBITMQ_LOG_BASE}
-
 yum_install ${ERLANG_SOURCE_URL}
 yum_install ${RABBITMQ_SOURCE_URL}
 
@@ -57,10 +54,14 @@ deploy_blueprint_resource "components/rabbitmq/config/rabbitmq_ulimit.conf" "/et
 deploy_blueprint_resource "components/rabbitmq/config/cloudify-rabbitmq" "/etc/rabbitmq/rabbitmq-env.conf"
 ####sudo systemctl daemon-reload
 
+#ctx logger info "Chowning RabbitMQ logs path..."
+#sudo chown rabbitmq:rabbitmq ${RABBITMQ_LOG_BASE}
+
 ctx logger info "Starting RabbitMQ Server in Daemonized mode..."
 ####sudo systemctl start cloudify-rabbitmq.service
-sudo initctl restart rabbitmq
-	
+sudo initctl stop rabbitmq
+sudo initctl start rabbitmq
+
 ctx logger info "Enabling RabbitMQ Plugins..."
 sudo rabbitmq-plugins enable rabbitmq_management >/dev/null
 sudo rabbitmq-plugins enable rabbitmq_tracing >/dev/null

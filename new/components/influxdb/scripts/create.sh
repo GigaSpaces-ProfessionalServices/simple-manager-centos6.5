@@ -23,6 +23,9 @@ create_dir ${INFLUXDB_LOG_PATH}
 
 yum_install ${INFLUXDB_SOURCE_URL}
 
+ctx logger info "Chowning InfluxDB logs path..."
+sudo chown -R influxdb:influxdb ${INFLUXDB_LOG_PATH}
+
 # influxdb 0.8 rotates its log files every midnight
 # so that's the files we going to logrotate here (*.txt.*)
 ctx logger info "Configuring logrotate..."
@@ -43,9 +46,6 @@ sudo chmod 644 $lconf
 
 ctx logger info "Deploying InfluxDB Config file..."
 deploy_blueprint_resource "${CONFIG_REL_PATH}/config.toml" "${INFLUXDB_HOME}/shared/config.toml"
-
-ctx logger info "Chowning InfluxDB logs path..."
-sudo chown -R influxdb:influxdb ${INFLUXDB_LOG_PATH}
 
 #####  configure_systemd_service "influxdb"
 deploy_blueprint_resource "${CONFIG_INIT_PATH}/cloudify-influxdb.conf" "${CONFIG_INIT_DEST}/cloudify-influxdb.conf"

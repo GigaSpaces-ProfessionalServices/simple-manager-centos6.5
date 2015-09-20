@@ -33,6 +33,7 @@ sudo mv ${langohr} ${EXTRA_CLASSPATH}
 ctx logger info "Applying Langohr permissions..."
 sudo chmod 644 ${EXTRA_CLASSPATH}
 ctx logger info "Installing Daemonize..."
+
 yum_install ${DAEMONIZE_SOURCE_URL}
 yum_install ${RIEMANN_SOURCE_URL}
 
@@ -74,5 +75,5 @@ deploy_blueprint_resource "${CONFIG_REL_PATH}/main.clj" "${RIEMANN_CONFIG_PATH}/
 #####configure_systemd_service "riemann"    # <<<<
 deploy_blueprint_resource "${CONFIG_INIT_PATH}/riemann.conf" "${CONFIG_INIT_DEST}/riemann.conf"
 
-ctx logger info "Removing /etc/init.d/riemann..."
-sudo rm -f /etc/init.d/riemann
+#ctx logger info "Removing /etc/init.d/riemann..."
+#sudo rm -f /etc/init.d/riemann
