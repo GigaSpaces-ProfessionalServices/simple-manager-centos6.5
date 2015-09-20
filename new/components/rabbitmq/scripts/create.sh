@@ -17,6 +17,9 @@ ctx logger info "Installing RabbitMQ..."
 copy_notice "rabbitmq"
 create_dir "${RABBITMQ_LOG_BASE}"
 
+ctx logger info "Chowning RabbitMQ logs path..."
+sudo chown rabbitmq:rabbitmq ${RABBITMQ_LOG_BASE}
+
 yum_install ${ERLANG_SOURCE_URL}
 yum_install ${RABBITMQ_SOURCE_URL}
 
@@ -24,7 +27,6 @@ yum_install ${RABBITMQ_SOURCE_URL}
 # curl --fail --location http://www.rabbitmq.com/releases/rabbitmq-server/v${RABBITMQ_VERSION}/rabbitmq-server-${RABBITMQ_VERSION}-1.noarch.rpm -o /tmp/rabbitmq.rpm
 # sudo rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 # sudo yum install /tmp/rabbitmq.rpm -y
-
 
 ctx logger info "Configuring logrotate..."
 lconf="/etc/logrotate.d/rabbitmq-server"
@@ -48,8 +50,7 @@ sudo chmod 644 $lconf
 
 ####configure_systemd_service "rabbitmq"
 deploy_blueprint_resource "${CONFIG_INIT_PATH}/rabbitmq.conf" "${CONFIG_INIT_DEST}/rabbitmq.conf"
-sudo rm -f /etc/init.d/rabbitmq-server
-
+#sudo rm -f /etc/init.d/rabbitmq-server
 
 ctx logger info "Configuring File Descriptors Limit..."
 deploy_blueprint_resource "components/rabbitmq/config/rabbitmq_ulimit.conf" "/etc/security/limits.d/rabbitmq.conf"
@@ -58,7 +59,7 @@ deploy_blueprint_resource "components/rabbitmq/config/cloudify-rabbitmq" "/etc/r
 
 ctx logger info "Starting RabbitMQ Server in Daemonized mode..."
 ####sudo systemctl start cloudify-rabbitmq.service
-sudo initctl start rabbitmq
+sudo initctl restart rabbitmq
 	
 ctx logger info "Enabling RabbitMQ Plugins..."
 sudo rabbitmq-plugins enable rabbitmq_management >/dev/null
@@ -68,10 +69,6 @@ sudo rabbitmq-plugins enable rabbitmq_tracing >/dev/null
 ctx logger info "Enabling RabbitMQ user access..."
 echo "[{rabbit, [{loopback_users, []}]}]." | sudo tee --append /etc/rabbitmq/rabbitmq.config >/dev/null
 
-ctx logger info "Chowning RabbitMQ logs path..."
-sudo chown rabbitmq:rabbitmq ${RABBITMQ_LOG_BASE}
-
 ctx logger info "Stopping RabbitMQ Service..."
 ####sudo systemctl stop cloudify-rabbitmq.service
-
 sudo initctl stop rabbitmq

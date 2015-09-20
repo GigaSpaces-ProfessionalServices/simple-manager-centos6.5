@@ -20,12 +20,6 @@ function create_virtualenv
 {
     virtualenv_path=$1
 
-    INSTALL_PYTHON=$(ctx node properties install_python)
-
-    ctx logger info "################################################################################"
-    ctx logger info "#################  install python value :  ${INSTALL_PYTHON}   #################"
-    ctx logger info "################################################################################"
-
     ctx logger info "Creating virtualenv ${virtualenv_path}..."
     sudo virtualenv --python=/usr/bin/python2.7 ${virtualenv_path} >/dev/null
 }

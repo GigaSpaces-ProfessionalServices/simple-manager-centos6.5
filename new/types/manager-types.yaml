@@ -50,11 +50,8 @@ node_types:
         type: string
         default: ''
       install_python:
-        description: >
-          Set to true, if using centos 6.5 vanila with python 2.6,
-          will triger installation of python 2.7.10 + pip + virtualenv
         type: string
-        default: 'true'
+        default: 'false'
     interfaces:
       cloudify.interfaces.lifecycle:
         create:
