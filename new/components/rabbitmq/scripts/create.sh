@@ -47,19 +47,16 @@ sudo chmod 644 $lconf
 
 ####configure_systemd_service "rabbitmq"
 deploy_blueprint_resource "${CONFIG_INIT_PATH}/rabbitmq.conf" "${CONFIG_INIT_DEST}/rabbitmq.conf"
-#sudo rm -f /etc/init.d/rabbitmq-server
 
 ctx logger info "Configuring File Descriptors Limit..."
 deploy_blueprint_resource "components/rabbitmq/config/rabbitmq_ulimit.conf" "/etc/security/limits.d/rabbitmq.conf"
 deploy_blueprint_resource "components/rabbitmq/config/cloudify-rabbitmq" "/etc/rabbitmq/rabbitmq-env.conf"
 ####sudo systemctl daemon-reload
 
-#ctx logger info "Chowning RabbitMQ logs path..."
-#sudo chown rabbitmq:rabbitmq ${RABBITMQ_LOG_BASE}
+ctx logger info "Chowning RabbitMQ logs path..."
+sudo chown rabbitmq:rabbitmq ${RABBITMQ_LOG_BASE}
 
 ctx logger info "Starting RabbitMQ Server in Daemonized mode..."
-####sudo systemctl start cloudify-rabbitmq.service
-sudo initctl stop rabbitmq
 sudo initctl start rabbitmq
 
 ctx logger info "Enabling RabbitMQ Plugins..."
@@ -71,5 +68,5 @@ ctx logger info "Enabling RabbitMQ user access..."
 echo "[{rabbit, [{loopback_users, []}]}]." | sudo tee --append /etc/rabbitmq/rabbitmq.config >/dev/null
 
 ctx logger info "Stopping RabbitMQ Service..."
-####sudo systemctl stop cloudify-rabbitmq.service
 sudo initctl stop rabbitmq
+sudo rm -f /etc/init.d/rabbitmq-server
