@@ -30,8 +30,6 @@ create_dir ${ELASTICSEARCH_LOG_PATH}
 yum_install ${ELASTICHSEARCH_SOURCE_URL}
 
 sudo chown elasticsearch:elasticsearch ${ELASTICSEARCH_LOG_PATH}
-hostName=`hostname`
-echo "127.0.0.1   ${hostName}" | sudo tee -a /etc/hosts
 
 ctx logger info "Stop elasticsearch service after Install just in case..."
 sudo service elasticsearch stop
@@ -51,8 +49,7 @@ deploy_blueprint_resource "${CONFIG_REL_PATH}/elasticsearch.yml" "${ELASTICSEARC
 ctx logger info "Starting Elasticsearch for configuration purposes..."
 ####sudo systemctl enable elasticsearch.service &>/dev/null
 deploy_blueprint_resource "${CONFIG_INIT_PATH}/elasticsearch.conf" "${CONFIG_INIT_DEST}/elasticsearch.conf"
-
-#sudo rm -f /etc/init.d/elasticsearch
+sudo rm -f /etc/init.d/elasticsearch
 sudo initctl start elasticsearch
 
 ctx logger info "Waiting for Elasticsearch to become available..."

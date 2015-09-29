@@ -52,12 +52,14 @@ ctx logger info "Configuring File Descriptors Limit..."
 deploy_blueprint_resource "components/rabbitmq/config/rabbitmq_ulimit.conf" "/etc/security/limits.d/rabbitmq.conf"
 deploy_blueprint_resource "components/rabbitmq/config/cloudify-rabbitmq" "/etc/rabbitmq/rabbitmq-env.conf"
 ####sudo systemctl daemon-reload
+sudo initctl reload-configuration
 
 ctx logger info "Chowning RabbitMQ logs path..."
 sudo chown rabbitmq:rabbitmq ${RABBITMQ_LOG_BASE}
 
 ctx logger info "Starting RabbitMQ Server in Daemonized mode..."
 sudo initctl start rabbitmq
+sleep 10
 
 ctx logger info "Enabling RabbitMQ Plugins..."
 sudo rabbitmq-plugins enable rabbitmq_management >/dev/null

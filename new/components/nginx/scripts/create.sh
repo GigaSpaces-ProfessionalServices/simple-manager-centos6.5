@@ -46,8 +46,10 @@ deploy_blueprint_resource "${CONFIG_INIT_PATH}/nginx.repo" "/etc/yum.repos.d/ngi
 ctx logger info "Install Nginx .."
 #nginxRPM=`find /tmp -name nginx* -print`
 #yum_install "${nginxRPM}"
+
 yum_install "nginx"
 ####yum_install ${NGINX_SOURCE_URL}
+sudo rm -f /etc/init.d/nginx
 
 ctx logger info "Deploying Nginx configuration files..."
 deploy_blueprint_resource "${CONFIG_REL_PATH}/default.conf" "/etc/nginx/conf.d/default.conf"
@@ -87,4 +89,3 @@ sudo cp -R "/tmp/resources/rest-service/cloudify/" "${MANAGER_RESOURCES_HOME}"
 
 #####sudo systemctl enable nginx.service &>/dev/null
 deploy_blueprint_resource "${CONFIG_INIT_PATH}/nginx.conf" "${CONFIG_INIT_DEST}/nginx.conf"
-sudo rm -f /etc/init.d/nginx
