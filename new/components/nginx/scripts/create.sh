@@ -3,6 +3,7 @@
 . $(ctx download-resource "components/utils")
 
 CONFIG_REL_PATH="components/nginx/config"
+SSL_RESOURCES_REL_PATH="resources/ssl"
 
 
 export NGINX_SOURCE_URL=$(ctx node properties nginx_rpm_source_url)  # (e.g. "https://dl.dropboxusercontent.com/u/407576/3.2/nginx-1.8.0-1.el7.ngx.x86_64.rpm")

@@ -8,4 +8,4 @@ ctx logger info "Deploying REST Security configuration file..."
 sec_settings=$(ctx -j target node properties security)
 # TODO: do not print to stdout
 echo $sec_settings | sudo tee "${REST_SERVICE_HOME}/rest-security.conf"
-configure_systemd_service "restservice"
+#configure_systemd_service "restservice"

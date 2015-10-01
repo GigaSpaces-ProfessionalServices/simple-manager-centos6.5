@@ -59,7 +59,7 @@ sudo initctl reload-configuration
 
 ctx logger info "Starting RabbitMQ Server in Daemonized mode..."
 #sudo systemctl start cloudify-rabbitmq.service
-sudo initctl start rabbitmq
+sudo initctl start cloudify-rabbitmq
 sleep 10
 
 ctx logger info "Enabling RabbitMQ Plugins..."
@@ -76,4 +76,4 @@ sudo chown rabbitmq:rabbitmq ${RABBITMQ_LOG_BASE}
 
 ctx logger info "Stopping RabbitMQ Service..."
 #sudo systemctl stop cloudify-rabbitmq.service
-sudo initctl stop rabbitmq
+sudo initctl stop cloudify-rabbitmq

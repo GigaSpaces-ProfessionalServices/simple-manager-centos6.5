@@ -92,7 +92,7 @@ EOF
     sudo chown -R root:root /etc/cron.daily/rotate_es_indices
     sudo chmod +x /etc/cron.daily/rotate_es_indices
 
-    ctx logger info "Enabling Elasticsearch Service..."
+#    ctx logger info "Enabling Elasticsearch Service..."
 #    sudo systemctl enable elasticsearch.service &>/dev/null
 }
 
@@ -117,5 +117,5 @@ else
 
     ctx logger info "Stopping Elasticsearch Service..."
 #    sudo systemctl stop elasticsearch.service
-    sudo initctl start elasticsearch
+    sudo initctl stop elasticsearch
 fi
