@@ -1,7 +1,8 @@
 #!/bin/bash -e
 
 ctx logger info "Starting RabbitMQ Service..."
-sudo initctl start rabbitmq
+#sudo systemctl start cloudify-rabbitmq.service
+sudo initctl start cloudify-rabbitmq
 
 
 # This should be done in the create.sh script. For some reason, it fails. Need to check.
@@ -31,3 +32,4 @@ sudo rabbitmqctl set_policy events_queue_length "^cloudify-events$" "{"\"max-len
 ctx logger info "Setting cloudify-monitoring queues length to ${RABBITMQ_METRICS_QUEUE_LENGTH_LIMIT}..."
 sudo rabbitmqctl set_policy metrics_queue "^amq\.gen.*$" "{"\"max-length"\":${RABBITMQ_METRICS_QUEUE_LENGTH_LIMIT}}" --apply-to queues >/dev/null
 sudo rabbitmqctl set_policy riemann_deployment_queues "^.*-riemann$" "{"\"max-length"\":${RABBITMQ_METRICS_QUEUE_LENGTH_LIMIT}}" --apply-to queues >/dev/null
+

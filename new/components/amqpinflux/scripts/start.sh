@@ -1,4 +1,5 @@
 #!/bin/bash -e
 
 ctx logger info "AMQP InfluxDB Broker..."
-sudo initctl start amqpinflux
+#sudo systemctl start cloudify-amqpinflux.service
+sudo initctl start cloudify-amqpinflux

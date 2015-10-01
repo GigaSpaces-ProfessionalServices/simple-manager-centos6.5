@@ -15,6 +15,7 @@ CONFIG_INIT_PATH="components/logstash/config/upstart"
 CONFIG_INIT_DEST="/etc/init"
 
 ctx logger info "Installing Logstash..."
+set_selinux_permissive
 
 copy_notice "logstash"
 create_dir ${LOGSTASH_LOG_PATH}
@@ -42,6 +43,5 @@ EOF
 sudo chmod 644 $lconf
 
 # sudo systemctl enable logstash.service
-# sudo /sbin/chkconfig logstash on
+sudo /sbin/chkconfig logstash on
 deploy_blueprint_resource "${CONFIG_INIT_PATH}/logstash.conf" "${CONFIG_INIT_DEST}/logstash.conf"
-sudo rm -f /etc/init.d/logstash

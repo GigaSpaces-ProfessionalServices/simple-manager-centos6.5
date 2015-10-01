@@ -21,6 +21,7 @@ export EXTRA_CLASSPATH="${LANGOHR_HOME}/langohr.jar"
 
 
 ctx logger info "Installing Riemann..."
+set_selinux_permissive
 
 copy_notice "riemann"
 create_dir ${RIEMANN_LOG_PATH}
@@ -33,7 +34,6 @@ sudo mv ${langohr} ${EXTRA_CLASSPATH}
 ctx logger info "Applying Langohr permissions..."
 sudo chmod 644 ${EXTRA_CLASSPATH}
 ctx logger info "Installing Daemonize..."
-
 yum_install ${DAEMONIZE_SOURCE_URL}
 yum_install ${RIEMANN_SOURCE_URL}
 
@@ -68,12 +68,9 @@ deploy_blueprint_resource "${CONFIG_REL_PATH}/main.clj" "${RIEMANN_CONFIG_PATH}/
 # that they're found at "localhost"
 # export MANAGEMENT_IP=""
 # export RABBITMQ_HOST=""
-# we inject the management_ip for both of these to Riemann's systemd config. These should be potentially different
 
+# we inject the management_ip for both of these to Riemann's systemd config. These should be potentially different
 # if the manager and rabbitmq are running on different hosts.
 
-#####configure_systemd_service "riemann"    # <<<<
-deploy_blueprint_resource "${CONFIG_INIT_PATH}/riemann.conf" "${CONFIG_INIT_DEST}/riemann.conf"
-
-#ctx logger info "Removing /etc/init.d/riemann..."
-#sudo rm -f /etc/init.d/riemann
+#configure_systemd_service "riemann"
+deploy_blueprint_resource "${CONFIG_INIT_PATH}/cloudify-riemann.conf" "${CONFIG_INIT_DEST}/cloudify-riemann.conf"

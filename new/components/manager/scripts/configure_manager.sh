@@ -14,6 +14,19 @@ function _post_provider_context() {
 }
 
 
+function _set_rest_port() {
+    security_enabled=$(ctx -j node properties security.enabled)
+    ssl_enabled=$(ctx -j node properties security.ssl.enabled)
+    if ${security_enabled} == true && ${ssl_enabled} == true ; then
+        ctx logger info "SSL is enabled, setting rest port to 443..."
+        ctx instance runtime_properties rest_port 443
+    else
+        ctx logger info "Security is off or SSL not enabled, setting rest port to 80..."
+        ctx instance runtime_properties rest_port 80
+    fi
+}
+
+
 function _disable_requiretty() {
     ###
     # disables requiretty for a user or globally
@@ -29,7 +42,7 @@ function _disable_requiretty() {
         # http://0pointer.de/blog/projects/os-release.html
         # http://unix.stackexchange.com/questions/6345/how-can-i-get-distribution-name-and-version-number-in-a-simple-shell-script
         ###
-        if grep -i 'centos' /proc/version > /dev/null; then
+        if grep -i 'centoss' /proc/version > /dev/null; then
             echo 'supported'
         elif grep -i 'ubuntu' /proc/version > /dev/null; then
             echo 'supported'
@@ -89,3 +102,4 @@ function _disable_requiretty() {
 
 # _post_provider_context
 _disable_requiretty
+_set_rest_port

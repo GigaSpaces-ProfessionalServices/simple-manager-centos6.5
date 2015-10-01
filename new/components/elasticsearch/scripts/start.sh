@@ -1,6 +1,9 @@
 #!/bin/bash -e
 
-export ELASTICSEARCH_HOME="/opt/elasticsearch"
-ctx logger info "Starting Elasticsearch...
-"
-sudo initctl start elasticsearch
+ES_ENDPOINT_IP=$(ctx node properties es_endpoint_ip)
+
+if [ "${ES_ENDPOINT_IP}" == "localhost" ]; then
+    ctx logger info "Starting Elasticsearch..."
+#    sudo systemctl start elasticsearch.service
+    sudo initctl start elasticsearch
+fi

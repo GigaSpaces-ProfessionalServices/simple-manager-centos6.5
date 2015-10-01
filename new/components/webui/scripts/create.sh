@@ -19,6 +19,7 @@ export GRAFANA_HOME="${WEBUI_HOME}/grafana"
 
 
 ctx logger info "Installing Cloudify's WebUI..."
+set_selinux_permissive
 
 copy_notice "webui"
 webui_notice=$(ctx download-resource "components/webui/LICENSE")
@@ -66,5 +67,6 @@ EOF
 
 sudo chmod 644 $lconf
 
-####configure_systemd_service "webui"
+
+#configure_systemd_service "webui"
 deploy_blueprint_resource "${CONFIG_INIT_PATH}/cloudify-webui.conf" "${CONFIG_INIT_DEST}/cloudify-webui.conf"
