@@ -16,7 +16,7 @@ export CELERY_VERSION="3.1.17"
 # these must all be exported as part of the start operation. they will not persist, so we should use the new agent
 # don't forget to change all localhosts to the relevant ips
 export MGMTWORKER_HOME="/opt/mgmtworker"
-export VIRTUALENV_DIR="${MGMTWORKER_HOME}/env"
+export MGMTWORKER_VIRTUALENV_DIR="${MGMTWORKER_HOME}/env"
 export CELERY_WORK_DIR="${MGMTWORKER_HOME}/work"
 export CELERY_LOG_DIR="/var/log/cloudify/mgmtworker"
 
