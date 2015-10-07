@@ -3,19 +3,20 @@
 #############################
 
 # The public IP of the manager to which the CLI will connect.
-public_ip: '192.168.40.226'
+public_ip: '54.165.102.53'
 
 # The manager's private IP address. This is the address which will be used by the
 # application hosts to connect to the Manager's fileserver and message broker.
-private_ip: '10.67.79.123'
+private_ip: '172.30.1.150'
 
 # SSH user used to connect to the manager
-ssh_user: 'cloud-user'
+ssh_user: 'ec2-user'
+#ssh_user: 'cloud-user'
 #ssh_user: 'root'
 
 # SSH key path used to connect to the manager
-ssh_key_filename: '/home/alon/.ssh/alonlabkey.pem'
-#ssh_key_filename: '/home/alon/.ssh/alons-aws-key.pem'
+#ssh_key_filename: '/home/alon/.ssh/alonlabkey.pem'
+ssh_key_filename: '/home/alon/.ssh/alons-aws-key.pem'
 
 # This is the user with which the Manager will try to connect to the application hosts.
 #agents_user: 'cloud-user'
