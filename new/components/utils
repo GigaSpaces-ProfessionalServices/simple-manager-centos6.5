@@ -21,7 +21,8 @@ function create_virtualenv
     virtualenv_path=$1
 
     ctx logger info "Creating virtualenv ${virtualenv_path}..."
-    sudo virtualenv --python=/usr/bin/python2.7 ${virtualenv_path} >/dev/null
+#    sudo virtualenv --python=/usr/bin/python2.7 ${virtualenv_path} >/dev/null
+    sudo virtualenv ${virtualenv_path} >/dev/null
 }
 
 function create_dir
