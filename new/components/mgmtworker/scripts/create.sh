@@ -4,10 +4,10 @@
 
 
 export MANAGEMENT_WORKER_RPM_SOURCE_URL=$(ctx node properties management_worker_rpm_source_url)
-export REST_CLIENT_SOURCE_URL=$(ctx node properties rest_client_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/cloudify-rest-client/archive/3.2.zip")
-export PLUGINS_COMMON_SOURCE_URL=$(ctx node properties plugins_common_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/cloudify-plugins-common/archive/3.2.zip")
-export SCRIPT_PLUGIN_SOURCE_URL=$(ctx node properties script_plugin_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/cloudify-script-plugin/archive/1.2.zip")
-export REST_SERVICE_SOURCE_URL=$(ctx node properties rest_service_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/cloudify-manager/archive/3.2.tar.gz")
+export REST_CLIENT_SOURCE_URL=$(ctx node properties rest_client_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/cloudify-rest-client/archive/3.3m5.tar.gz")
+export PLUGINS_COMMON_SOURCE_URL=$(ctx node properties plugins_common_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/cloudify-plugins-common/archive/3.3m5.tar.gz")
+export SCRIPT_PLUGIN_SOURCE_URL=$(ctx node properties script_plugin_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/cloudify-script-plugin/archive/1.3m5.tar.gz")
+export REST_SERVICE_SOURCE_URL=$(ctx node properties rest_service_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/cloudify-manager/archive/3.3m5.tar.gz")
 export AGENT_SOURCE_URL=$(ctx node properties agent_module_source_url)
 
 # This will only be used if the management worker is not installed via an RPM
@@ -35,15 +35,20 @@ create_dir ${CELERY_LOG_DIR}
 create_dir ${CELERY_WORK_DIR}
 
 # this create the MGMTWORKER_VIRTUALENV_DIR and installs the relevant modules into it.
-yum_install ${MANAGEMENT_WORKER_RPM_SOURCE_URL}
+## rpm is not support on centos6.5
+#yum_install ${MANAGEMENT_WORKER_RPM_SOURCE_URL}
+
+# For centos6.5 since we are not using yum we need to create the virtual dir
+create_virtualenv "${MGMTWORKER_VIRTUALENV_DIR}"
 
 # this allows to upgrade modules if necessary.
 ctx logger info "Installing Optional Management Worker Modules..."
-[ -z ${MANAGEMENT_WORKER_RPM_SOURCE_URL} ] && install_module "celery==${CELERY_VERSION}" ${MGMTWORKER_VIRTUALENV_DIR}
-[ -z ${REST_CLIENT_SOURCE_URL} ] || install_module ${REST_CLIENT_SOURCE_URL} ${MGMTWORKER_VIRTUALENV_DIR}
-[ -z ${PLUGINS_COMMON_SOURCE_URL} ] || install_module ${PLUGINS_COMMON_SOURCE_URL} ${MGMTWORKER_VIRTUALENV_DIR}
-[ -z ${SCRIPT_PLUGIN_SOURCE_URL} ] || install_module ${SCRIPT_PLUGIN_SOURCE_URL} ${MGMTWORKER_VIRTUALENV_DIR}
-[ -z ${AGENT_SOURCE_URL} ] || install_module ${AGENT_SOURCE_URL} ${MGMTWORKER_VIRTUALENV_DIR}
+#[ -z ${MANAGEMENT_WORKER_RPM_SOURCE_URL} ] && install_module "celery==${CELERY_VERSION}" ${MGMTWORKER_VIRTUALENV_DIR}
+install_module "celery==${CELERY_VERSION}" ${MGMTWORKER_VIRTUALENV_DIR}
+install_module ${REST_CLIENT_SOURCE_URL} ${MGMTWORKER_VIRTUALENV_DIR}
+install_module ${PLUGINS_COMMON_SOURCE_URL} ${MGMTWORKER_VIRTUALENV_DIR}
+install_module ${SCRIPT_PLUGIN_SOURCE_URL} ${MGMTWORKER_VIRTUALENV_DIR}
+install_module ${AGENT_SOURCE_URL} ${MGMTWORKER_VIRTUALENV_DIR}
 
 if [ ! -z ${REST_SERVICE_SOURCE_URL} ]; then
     ctx logger info "Downloading cloudify-manager Repository..."

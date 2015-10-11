@@ -252,25 +252,29 @@ inputs:
     type: string
     default: ''
 
+# only for centos 6.5
   rest_service_source_url:
     type: string
-    default: ''
+    default: 'https://github.com/cloudify-cosmo/cloudify-manager/archive/3.3m5.tar.gz'
 
   dsl_parser_source_url:
     type: string
     default: ''
 
+# only for centos 6.5
   rest_client_source_url:
     type: string
-    default: ''
+    default: 'https://github.com/cloudify-cosmo/cloudify-rest-client/archive/3.3m5.tar.gz'
 
+# only for centos 6.5
   plugins_common_source_url:
     type: string
-    default: ''
+    default: 'https://github.com/cloudify-cosmo/cloudify-plugins-common/archive/3.3m5.tar.gz'
 
+# only for centos 6.5
   script_plugin_source_url:
     type: string
-    default: ''
+    default: 'https://github.com/cloudify-cosmo/cloudify-script-plugin/archive/1.3m5.tar.gz'
 
   securest_source_url:
     type: string
@@ -280,9 +284,10 @@ inputs:
     type: string
     default: ''
 
+# only for centos 6.5
   agent_source_url:
     type: string
-    default: ''
+    default: 'https://github.com/cloudify-cosmo/cloudify-agent/archive/3.3m5.tar.gz'
 
 
 ######################################################################
