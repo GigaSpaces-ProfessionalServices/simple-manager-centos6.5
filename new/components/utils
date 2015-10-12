@@ -21,8 +21,8 @@ function create_virtualenv
     virtualenv_path=$1
 
     ctx logger info "Creating virtualenv ${virtualenv_path}..."
-#    sudo virtualenv --python=/usr/bin/python2.7 ${virtualenv_path} >/dev/null
-    sudo virtualenv ${virtualenv_path} >/dev/null
+#   sudo virtualenv ${virtualenv_path} >/dev/null
+    sudo /usr/local/bin/virtualenv ${virtualenv_path} >/dev/null
 }
 
 function create_dir
@@ -43,7 +43,8 @@ function install_module
         sudo ${venv}/bin/pip install ${module} >/dev/null
     else
         ctx logger info "Installing ${module}..."
-        sudo pip install ${module} >/dev/null
+#        sudo pip install ${module} >/dev/null
+        sudo /usr/local/bin/pip install ${module} >/dev/null
     fi
 }
 

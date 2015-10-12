@@ -9,10 +9,10 @@ export CONFIG_INIT_PATH="components/restservice/config/upstart"
 export CONFIG_INIT_DEST="/etc/init"
 
 export REST_SERVICE_RPM_SOURCE_URL=$(ctx node properties rest_service_rpm_source_url)
-export DSL_PARSER_SOURCE_URL=$(ctx node properties dsl_parser_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/cloudify-dsl-parser/archive/3.2.tar.gz")
-export REST_CLIENT_SOURCE_URL=$(ctx node properties rest_client_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/cloudify-rest-client/archive/3.2.tar.gz")
+export DSL_PARSER_SOURCE_URL=$(ctx node properties dsl_parser_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/cloudify-dsl-parser/archive/3.3m5.tar.gz")
+export REST_CLIENT_SOURCE_URL=$(ctx node properties rest_client_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/cloudify-rest-client/archive/3.3m5.tar.gz")
 export SECUREST_SOURCE_URL=$(ctx node properties securest_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/flask-securest/archive/0.6.tar.gz")
-export REST_SERVICE_SOURCE_URL=$(ctx node properties rest_service_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/cloudify-manager/archive/3.2.tar.gz")
+export REST_SERVICE_SOURCE_URL=$(ctx node properties rest_service_module_source_url)  # (e.g. "https://github.com/cloudify-cosmo/cloudify-manager/archive/3.3m5.tar.gz")
 export PLUGINS_COMMON_SOURCE_URL=$(ctx node properties plugins_common_module_source_url)
 export SCRIPT_PLUGIN_SOURCE_URL=$(ctx node properties script_plugin_module_source_url)
 export AGENT_SOURCE_URL=$(ctx node properties agent_module_source_url)
@@ -35,6 +35,9 @@ copy_notice "restservice"
 create_dir ${REST_SERVICE_HOME}
 create_dir ${REST_SERVICE_LOG_PATH}
 create_dir ${MANAGER_RESOURCES_HOME}
+
+# For centos6.5 since we are not using yum we need to create the virtual dir
+create_virtualenv "${RESTSERVICE_VIRTUALENV}"
 
 # this create the RESTSERVICE_VIRTUALENV and installs the relevant modules into it.
 yum_install ${REST_SERVICE_RPM_SOURCE_URL}
