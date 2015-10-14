@@ -36,11 +36,12 @@ create_dir ${REST_SERVICE_HOME}
 create_dir ${REST_SERVICE_LOG_PATH}
 create_dir ${MANAGER_RESOURCES_HOME}
 
-# For centos6.5 since we are not using yum we need to create the virtual dir
-create_virtualenv "${RESTSERVICE_VIRTUALENV}"
 
 # this create the RESTSERVICE_VIRTUALENV and installs the relevant modules into it.
-yum_install ${REST_SERVICE_RPM_SOURCE_URL}
+# yum_install ${REST_SERVICE_RPM_SOURCE_URL}
+
+# For centos6.5 since we are not using yum we need to create the virtual dir
+create_virtualenv "${RESTSERVICE_VIRTUALENV}"
 
 # link dbus-python-1.1.1-9.el7.x86_64 to the venv (module in pypi is very old)
 # Todo: need to check this
