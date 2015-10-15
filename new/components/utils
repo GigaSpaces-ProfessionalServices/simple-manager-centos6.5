@@ -22,7 +22,6 @@ function create_virtualenv
 
     ctx logger info "Creating virtualenv ${virtualenv_path}..."
     sudo virtualenv ${virtualenv_path} >/dev/null
-#    sudo /usr/bin/virtualenv ${virtualenv_path} >/dev/null
 }
 
 function create_dir
@@ -44,7 +43,6 @@ function install_module
     else
         ctx logger info "Installing ${module}..."
         sudo pip install ${module} >/dev/null
-#        sudo /usr/bin/pip install ${module} >/dev/null
     fi
 }
 

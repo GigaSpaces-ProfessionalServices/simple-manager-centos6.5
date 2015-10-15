@@ -14,7 +14,9 @@ ctx logger info "No need to install pip, pip 2.7 already installed..."
 # not need for python installation at this point since 2.7 was already installed
 #yum_install ${PIP_SOURCE_RPM_URL}
 
-if [ ! -z "${INSTALL_PYTHON_COMPILERS}" ]; then
-    ctx logger info "Installing Compilers..."
-    yum_install "python-devel gcc" >/dev/null
-fi
+# already installed on setup
+
+#if [ ! -z "${INSTALL_PYTHON_COMPILERS}" ]; then
+#    ctx logger info "Installing Compilers..."
+#    yum_install "python-devel gcc" >/dev/null
+#fi
