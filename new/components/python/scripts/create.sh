@@ -10,7 +10,7 @@ ctx logger info "Installing Python requirements..."
 set_selinux_permissive
 copy_notice "python"
 
-ctx logger info "No need to install pip, pip 2.7 already installed..."
+#ctx logger info "No need to install pip, pip 2.7 already installed..."
 # not need for python installation at this point since 2.7 was already installed
 #yum_install ${PIP_SOURCE_RPM_URL}
 
