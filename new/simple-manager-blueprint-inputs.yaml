@@ -7,12 +7,11 @@ public_ip: '192.168.41.15'
 
 # The manager's private IP address. This is the address which will be used by the
 # application hosts to connect to the Manager's fileserver and message broker.
-private_ip: '10.67.79.161'
+private_ip: '10.67.79.162'
 
 # SSH user used to connect to the manager
 #ssh_user: 'ec2-user'
 ssh_user: 'cloud-user'
-#ssh_user: 'root'
 
 # SSH key path used to connect to the manager
 ssh_key_filename: '/home/alon/.ssh/alonlabkey.pem'
