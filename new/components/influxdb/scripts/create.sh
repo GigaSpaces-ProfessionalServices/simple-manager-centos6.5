@@ -48,11 +48,9 @@ deploy_blueprint_resource "${CONFIG_REL_PATH}/config.toml" "${INFLUXDB_HOME}/sha
 ctx logger info "Chowning InfluxDB logs path..."
 sudo chown -R influxdb:influxdb ${INFLUXDB_LOG_PATH}
 
-#configure_systemd_service "influxdb"
 deploy_blueprint_resource "${CONFIG_INIT_PATH}/cloudify-influxdb.conf" "${CONFIG_INIT_DEST}/cloudify-influxdb.conf"
 
 ctx logger info "Starting InfluxDB for configuration purposes..."
-#sudo systemctl start cloudify-influxdb.service
 sudo initctl start cloudify-influxdb
 ctx logger info "Waiting for InfluxDB to become available..."
 wait_for_port "${INFLUXDB_PORT}"
@@ -62,5 +60,4 @@ test_db_creation=$(curl --show-error --silent --retry 5 'http://localhost:8086/c
 ctx logger info "InfluxDB Database Creation test: ${test_db_creation}"
 ctx logger info "Killing InfluxDB..."
 
-#sudo systemctl stop cloudify-influxdb.service
 sudo initctl stop cloudify-influxdb

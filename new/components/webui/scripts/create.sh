@@ -68,5 +68,4 @@ EOF
 sudo chmod 644 $lconf
 
 
-#configure_systemd_service "webui"
 deploy_blueprint_resource "${CONFIG_INIT_PATH}/cloudify-webui.conf" "${CONFIG_INIT_DEST}/cloudify-webui.conf"

@@ -21,7 +21,7 @@ create_dir "${AMQPINFLUX_HOME}"
 # this create the AMQPINFLUX_VIRTUALENV_DIR and installs the module into it.
 # yum_install ${AMQPINFLUX_RPM_SOURCE_URL}
 
-# For centos6.5 since we are not using yum we need to create the virtual dir
+# In centos6.5 we are not using yum so we need to create the virtualenv dir
 create_virtualenv "${AMQPINFLUX_VIRTUALENV_DIR}"
 
 # this allows to upgrade amqpinflux if necessary.

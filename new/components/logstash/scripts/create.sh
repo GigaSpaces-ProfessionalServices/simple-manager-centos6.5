@@ -42,6 +42,5 @@ EOF
 
 sudo chmod 644 $lconf
 
-# sudo systemctl enable logstash.service
 sudo /sbin/chkconfig logstash on
 deploy_blueprint_resource "${CONFIG_INIT_PATH}/logstash.conf" "${CONFIG_INIT_DEST}/logstash.conf"

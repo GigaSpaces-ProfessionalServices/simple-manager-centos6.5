@@ -74,5 +74,4 @@ ctx logger info "Copying SSL Certs..."
 deploy_blueprint_resource "${SSL_RESOURCES_REL_PATH}/server.crt" "${SSL_CERTS_ROOT}/server.crt"
 deploy_blueprint_resource "${SSL_RESOURCES_REL_PATH}/server.key" "${SSL_CERTS_ROOT}/server.key"
 
-#sudo systemctl enable nginx.service &>/dev/null
 deploy_blueprint_resource "${CONFIG_INIT_PATH}/nginx.conf" "${CONFIG_INIT_DEST}/nginx.conf"

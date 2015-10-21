@@ -107,7 +107,6 @@ else
     install_elasticsearch
 
     ctx logger info "Starting Elasticsearch Service..."
-#    sudo systemctl start elasticsearch.service
     deploy_blueprint_resource "${CONFIG_INIT_PATH}/elasticsearch.conf" "${CONFIG_INIT_DEST}/elasticsearch.conf"
     sudo initctl start elasticsearch
 
@@ -116,6 +115,5 @@ else
     configure_elasticsearch "${ES_ENDPOINT_IP}" "${ES_ENDPOINT_PORT}"
 
     ctx logger info "Stopping Elasticsearch Service..."
-#    sudo systemctl stop elasticsearch.service
     sudo initctl stop elasticsearch
 fi

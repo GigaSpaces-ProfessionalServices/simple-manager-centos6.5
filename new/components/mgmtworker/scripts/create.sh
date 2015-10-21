@@ -38,7 +38,7 @@ create_dir ${CELERY_WORK_DIR}
 ## rpm is not support on centos6.5
 #yum_install ${MANAGEMENT_WORKER_RPM_SOURCE_URL}
 
-# For centos6.5 since we are not using yum we need to create the virtual dir
+# in centos6.5 we are not using yum so we need to create the virtualenv dir
 create_virtualenv "${MGMTWORKER_VIRTUALENV_DIR}"
 
 # this allows to upgrade modules if necessary.
@@ -62,5 +62,4 @@ if [ ! -z ${REST_SERVICE_SOURCE_URL} ]; then
     install_module "/tmp/workflows" ${MGMTWORKER_VIRTUALENV_DIR}
 fi
 
-#configure_systemd_service "mgmtworker"
 deploy_blueprint_resource "${CONFIG_INIT_PATH}/cloudify-mgmtworker.conf" "${CONFIG_INIT_DEST}/cloudify-mgmtworker.conf"
